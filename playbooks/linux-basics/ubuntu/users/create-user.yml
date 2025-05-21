@@ -1,0 +1,30 @@
+---
+- name: Create a user in Ubuntu
+  hosts: localhost
+  become: true
+  vars:
+    username: johndoe
+    user_password: "{{ 'StrongPassword123!' | password_hash('sha512') }}"
+    user_shell: /bin/bash
+    user_groups:
+      - sudo
+      - adm
+
+  tasks:
+
+    - name: Ensure user {{ username }} exists
+      ansible.builtin.user:
+        name: "{{ username }}"
+        password: "{{ user_password }}"
+        shell: "{{ user_shell }}"
+        groups: "{{ user_groups }}"
+        append: yes
+        state: present
+        create_home: yes
+
+    - name: Ensure home directory has correct ownership
+      ansible.builtin.file:
+        path: "/home/{{ username }}"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        state: directory

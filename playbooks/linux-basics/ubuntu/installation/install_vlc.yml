@@ -1,0 +1,15 @@
+---
+- name: Install VLC
+  hosts: localhost
+  become: true # become is used to run the tasks with elevated privileges
+  tasks:
+    - name: Ensure apt cache is up to date
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600 # Cache is valid for 1 hour
+        force_apt_get: yes # Force apt-get to be used instead of apt
+        
+    - name: Install VLC
+      ansible.builtin.apt:
+        name: vlc
+        state: present

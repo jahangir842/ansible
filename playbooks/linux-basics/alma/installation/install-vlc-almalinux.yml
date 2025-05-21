@@ -1,0 +1,22 @@
+---
+- name: Install VLC media player on AlmaLinux
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Ensure EPEL repository is enabled
+      ansible.builtin.yum:
+        name: epel-release
+        state: present
+
+    - name: Install RPM Fusion Free repository
+      ansible.builtin.yum:
+        name: https://download1.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm
+        state: present
+      when: ansible_distribution_major_version == "9"
+
+    - name: Install VLC package
+      ansible.builtin.yum:
+        name: vlc
+        state: present
+

@@ -1,0 +1,21 @@
+---
+- name: Create a no-login system user in Ubuntu
+  hosts: localhost
+  become: true
+  vars:
+    username: nologinuser
+
+  tasks:
+
+    - name: Ensure no-login user {{ username }} exists
+      ansible.builtin.user:
+        name: "{{ username }}"
+        shell: /usr/sbin/nologin
+        system: yes
+        state: present
+        create_home: no
+
+    - name: Ensure home directory does not exist
+      ansible.builtin.file:
+        path: "/home/{{ username }}"
+        state: absent
