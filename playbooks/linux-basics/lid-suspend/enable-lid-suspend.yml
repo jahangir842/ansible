@@ -1,0 +1,27 @@
+---
+- name: Enable suspend on lid close
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Comment out HandleLidSwitch line to enable suspend
+      ansible.builtin.replace:
+        path: /etc/systemd/logind.conf
+        regexp: '^(HandleLidSwitch=.*)'
+        replace: '# \1'
+        backup: yes
+      notify: Restart systemd-logind
+
+    - name: Comment out HandleLidSwitchDocked line to enable suspend
+      ansible.builtin.replace:
+        path: /etc/systemd/logind.conf
+        regexp: '^(HandleLidSwitchDocked=.*)'
+        replace: '# \1'
+        backup: yes
+      notify: Restart systemd-logind
+
+  handlers:
+    - name: Restart systemd-logind
+      ansible.builtin.systemd:
+        name: systemd-logind
+        state: restarted
