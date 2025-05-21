@@ -1,0 +1,24 @@
+---
+- name: Disable suspend on lid close
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Ensure systemd-logind.conf has HandleLidSwitch=ignore
+      ansible.builtin.replace:
+        path: /etc/systemd/logind.conf
+        regexp: '^#?HandleLidSwitch=.*'
+        replace: 'HandleLidSwitch=ignore'
+        backup: yes
+
+    - name: Ensure systemd-logind.conf has HandleLidSwitchDocked=ignore
+      ansible.builtin.replace:
+        path: /etc/systemd/logind.conf
+        regexp: '^#?HandleLidSwitchDocked=.*'
+        replace: 'HandleLidSwitchDocked=ignore'
+        backup: yes
+
+    - name: Restart systemd-logind to apply changes
+      ansible.builtin.systemd:
+        name: systemd-logind
+        state: restarted
