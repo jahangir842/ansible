@@ -10,6 +10,7 @@
         regexp: '^#?HandleLidSwitch=.*'
         replace: 'HandleLidSwitch=ignore'
         backup: yes
+      notify: Restart systemd-logind
 
     - name: Ensure systemd-logind.conf has HandleLidSwitchDocked=ignore
       ansible.builtin.replace:
@@ -17,8 +18,10 @@
         regexp: '^#?HandleLidSwitchDocked=.*'
         replace: 'HandleLidSwitchDocked=ignore'
         backup: yes
+      notify: Restart systemd-logind
 
-    - name: Restart systemd-logind to apply changes
+  handlers:
+    - name: Restart systemd-logind
       ansible.builtin.systemd:
         name: systemd-logind
         state: restarted
