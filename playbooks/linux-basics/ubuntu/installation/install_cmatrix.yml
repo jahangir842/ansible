@@ -1,7 +1,8 @@
 ---
-- name: Install cmatrix on Ubuntu
-  hosts: all
-  become: true
+- name: Install cmatrix on Ubuntu  
+  hosts: localhost # Change this to your target host or group
+  become: true # Use become to run as root
+  gather_facts: true # Gather facts to get system information
   tasks:
     - name: Update apt cache
       ansible.builtin.apt:
