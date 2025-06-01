@@ -12,4 +12,4 @@
     - name: Install Vim
       ansible.builtin.apt:
         name: vim
-        state: present
+        state: present # Use 'present' to ensure it's installed, 'absent' to remove it
