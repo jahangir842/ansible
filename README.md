@@ -29,6 +29,7 @@ To avoid password prompts entirely, configure passwordless `sudo` for your user:
 sudo visudo
 ```
 
+
 Then add the following line (replace `jahangir` with your actual username):
 
 ```bash
