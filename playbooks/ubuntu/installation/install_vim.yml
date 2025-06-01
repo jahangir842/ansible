@@ -1,6 +1,6 @@
 ---
-- name: Install cmatrix on Ubuntu  
-  hosts: ubuntu-vm: # Change this to your target host or group
+- name: Install Vim on Ubuntu  
+  hosts: localhost # Change this to your target host or group
   become: true # Use become to run as root
   gather_facts: true # Gather facts to get system information
   tasks:
@@ -9,7 +9,7 @@
         update_cache: yes
         cache_valid_time: 3600  # 1 hour
 
-    - name: Install cmatrix
+    - name: Install Vim
       ansible.builtin.apt:
-        name: cmatrix
+        name: vim
         state: present

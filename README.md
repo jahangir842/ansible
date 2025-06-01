@@ -9,10 +9,19 @@ This repository is intended for hands-on learning, testing, and practicing Ansib
 ## Example Command:
 
 ```bash
-ansible-playbook -i ~/projects/ansible/inventoriesinventories/inventory.yml install_vlc.yml
+ansible-playbook -i ~/projects/ansible/inventoriesinventories/inventory.yml install_vlc.yml -K
 ```
 
 ---
+
+## Allow Sudo Password Prompt
+Add ``--ask-become-pass (-K)`` when running your playbook:
+
+```bash
+ansible-playbook ./playbooks/ubuntu/installation/install_vim.yml -K
+```
+
+This tells Ansible to prompt you for your sudo password once and use it for all tasks needing become.
 
 ## 📌 Objective
 
