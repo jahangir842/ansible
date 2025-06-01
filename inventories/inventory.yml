@@ -1,0 +1,12 @@
+all:
+  hosts:
+    ubuntu-vm:
+      ansible_host: 167.99.143.117
+      ansible_user: adminit
+      ansible_python_interpreter: /usr/bin/python3
+    alma-vm:
+      ansible_host: 165.227.69.198
+      ansible_user: root
+      ansible_python_interpreter: /usr/bin/python3
+
+

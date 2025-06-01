@@ -1,0 +1,26 @@
+all:
+  vars:
+    ansible_user: adminit
+    # ansible_ssh_private_key_file: ~/.ssh/id_rsa
+
+  children:
+    webservers:
+      hosts:
+        web1.example.com:
+          ansible_host: 192.168.1.123
+
+    dbservers:
+      hosts:
+        db1.example.com:
+          ansible_host: 192.168.1.20
+          ansible_user: postgres
+        db2.example.com:
+          ansible_host: 192.168.1.21
+      vars:
+        db_port: 5432
+        db_engine: postgresql
+
+    monitoring:
+      hosts:
+        monitor1.example.com:
+          ansible_host: 192.168.1.30

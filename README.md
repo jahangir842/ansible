@@ -6,6 +6,14 @@ This repository is intended for hands-on learning, testing, and practicing Ansib
 
 ---
 
+## Example Command:
+
+```bash
+ansible-playbook -i ~/projects/ansible/inventoriesinventories/inventory.yml install_vlc.yml
+```
+
+---
+
 ## 📌 Objective
 
 The main goals of this repo are:

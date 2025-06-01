@@ -1,6 +1,7 @@
 ---
 - name: Install cmatrix on Ubuntu  
-  hosts: localhost # Change this to your target host or group
+  hosts: webservers # Change this to your target host or group
+  remote_user: adminit # Specify the remote user
   become: true # Use become to run as root
   gather_facts: true # Gather facts to get system information
   tasks:
