@@ -15,9 +15,13 @@ ansible-playbook -i ~/projects/ansible/inventories/inventory.yml install_vlc.yml
 
 ## Prepare New Client Node
 
+---
+
 ### Enable SSH Password Authentication (Manual)
 
-1. Edit SSH config:
+**For both RHEL- and Debian-based systems:**
+
+1. Edit SSH config file:
 
    ```bash
    sudo nano /etc/ssh/sshd_config
@@ -33,39 +37,54 @@ ansible-playbook -i ~/projects/ansible/inventories/inventory.yml install_vlc.yml
    ```bash
    PasswordAuthentication yes
    ```
-3. Save and exit, then restart SSH:
+3. Save and exit, then restart SSH service:
 
-   ```bash
-   sudo systemctl restart ssh
-   ```
+   * On **RHEL-based** systems (e.g., RHEL, CentOS, Fedora):
 
-> **Note:** Enabling password authentication increases security risks. Use strong passwords and consider additional protections like fail2ban.
+     ```bash
+     sudo systemctl restart sshd
+     ```
+   * On **Debian-based** systems (e.g., Ubuntu, Debian):
+
+     ```bash
+     sudo systemctl restart ssh
+     ```
+
+> **Note:** Enabling password authentication increases security risks. Use strong passwords and consider tools like fail2ban.
 
 ---
 
-### Allow SSH through firewalld
+### Allow SSH through Firewall
 
-```bash
-sudo firewall-cmd --permanent --add-service=ssh
-sudo firewall-cmd --reload
-```
+* **RHEL-based** (using firewalld):
+
+  ```bash
+  sudo firewall-cmd --permanent --add-service=ssh
+  sudo firewall-cmd --reload
+  ```
+* **Debian-based** (using ufw):
+
+  ```bash
+  sudo ufw allow ssh
+  sudo ufw reload
+  ```
 
 ---
 
 ### Configure Passwordless `sudo` (Optional)
 
-1. Edit sudoers:
+1. Edit sudoers file:
 
    ```bash
    sudo visudo
    ```
-2. Add:
+2. Add line (replace `userid` with your username):
 
    ```bash
    userid ALL=(ALL) NOPASSWD:ALL
    ```
 
-> **Warning:** Use carefully due to security implications.
+> **Warning:** This reduces security; apply with caution.
 
 ---
 
