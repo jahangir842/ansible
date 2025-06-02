@@ -15,13 +15,6 @@ ansible-playbook -i ~/projects/ansible/inventories/inventory.yml install_vlc.yml
 
 ## Prepare New Client Node
 
-### MLflow Server Installation
-
-* Configure via Ansible:
-  Repository: [https://github.com/jahangir842/ansible](https://github.com/jahangir842/ansible)
-
----
-
 ### Enable SSH Password Authentication (Manual)
 
 1. Edit SSH config:
@@ -74,10 +67,6 @@ sudo firewall-cmd --reload
 
 > **Warning:** Use carefully due to security implications.
 
----
-
-
----
 ---
 
 ## 🔐 Running with Elevated Privileges
