@@ -13,6 +13,73 @@ ansible-playbook -i ~/projects/ansible/inventories/inventory.yml install_vlc.yml
 
 ---
 
+## Prepare New Client Node
+
+### MLflow Server Installation
+
+* Configure via Ansible:
+  Repository: [https://github.com/jahangir842/ansible](https://github.com/jahangir842/ansible)
+
+---
+
+### Enable SSH Password Authentication (Manual)
+
+1. Edit SSH config:
+
+   ```bash
+   sudo nano /etc/ssh/sshd_config
+   ```
+2. Change:
+
+   ```bash
+   #PasswordAuthentication no
+   ```
+
+   to
+
+   ```bash
+   PasswordAuthentication yes
+   ```
+3. Save and exit, then restart SSH:
+
+   ```bash
+   sudo systemctl restart ssh
+   ```
+
+> **Note:** Enabling password authentication increases security risks. Use strong passwords and consider additional protections like fail2ban.
+
+---
+
+### Allow SSH through firewalld
+
+```bash
+sudo firewall-cmd --permanent --add-service=ssh
+sudo firewall-cmd --reload
+```
+
+---
+
+### Configure Passwordless `sudo` (Optional)
+
+1. Edit sudoers:
+
+   ```bash
+   sudo visudo
+   ```
+2. Add:
+
+   ```bash
+   userid ALL=(ALL) NOPASSWD:ALL
+   ```
+
+> **Warning:** Use carefully due to security implications.
+
+---
+
+
+---
+---
+
 ## 🔐 Running with Elevated Privileges
 
 To allow Ansible to prompt for your `sudo` password when executing tasks requiring privilege escalation, append the `--ask-become-pass` (`-K`) flag:
